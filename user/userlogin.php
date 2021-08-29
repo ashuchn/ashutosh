@@ -1,6 +1,7 @@
 <?php 
 include("connection.php");
-
+session_start();
+$forgot_pass = '';
 if(isset($_POST['login']))
 {
   $roll = $_POST['rollno'];
@@ -49,6 +50,11 @@ if(isset($_POST['login']))
       font-family: Roboto, sans-serif;
     }
     </style>
+    <script>
+      function showDiv() {
+      document.getElementById('password_div').style.display = "block";
+    }
+    </script>
     <title>User Login</title>
 </head>
 <body class="">
@@ -72,7 +78,7 @@ if(isset($_POST['login']))
       </div> -->
 
     <!-- <div class="w3-panel w3-red w3-center">
-      <p> <?php echo $err ?> </p>
+      <p> <?php //echo $err ?> </p>
     </div> -->
 
     <div class="w3-container" style="width:50%;margin:auto;">
@@ -87,12 +93,40 @@ if(isset($_POST['login']))
         <label for="password">Password</label>
         <input type="password" name="password" id="password" placeholder="Enter your Password" class="w3-input w3-border w3-round-xxlarge">
         </p>
-        <p style="width:40%;">
-          <input type="submit" class="w3-input w3-teal w3-hover-red w3-border w3-round-xxlarge" name="login" id="login" value="Login">
-        </p>
+        <div class="w3-row">
+          <div class="w3-col s3 w3-center ">
+            <p>
+              <input type="submit" class="w3-input w3-teal  w3-border w3-round-xxlarge" name="login" id="login" value="Login">
+            </p>
+          </div>
+          <div class="w3-col s4 ">
+            <p>
+            
+              <button type="Button" class="w3-input w3-teal w3-border w3-round-xxlarge"  onclick="showDiv()" value="Forgot Password?">Forgot Password? Click here</button>
+            
+            </p>
+          </div>
+        </div>
+        
 
       </form>
+      <div class="w3-container" id="password_div" style="display:none;">
+        <div class="w3-row" >
+          
+            <form action="forgotpass.php" method="post">
+              <div class="w3-col s4">
+                Roll Number
+                <input type="text" class="w3-input w3-border w3-round-xxlarge" name="rollnumber" id="rollnumer" placeholder="Enter roll number">
+              </div>
+              <div class="w3-col s4">
+                <input type="submit" class="w3-input w3-blue w3-border w3-round-xxlarge" name="forgot_pass" id="forgot_pass" value="Find" style="margin-top: 20px; margin-left: 22px; width:44%;">
+              </div>
+            </form>
+          
+          </div>
+        </div>
     </div>
+
     
 </body>
 </html>
