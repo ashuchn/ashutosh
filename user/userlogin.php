@@ -33,7 +33,30 @@ if(isset($_POST['login']))
   }
 
 }
+//php for show pass
+$password_db = '';
+if(isset($_POST['forgot_pass']))
+{
+  $rollnum = $_POST['rollnumber'];
+  $sql = "SELECT password from users where roll_num = '$rollnum' ";
+  $m = mysql_query($sql);
+  $res = mysql_fetch_array($m);
+  $num = mysql_num_rows($m);
 
+  if($num<0)
+  {
+    echo ("<script LANGUAGE='JavaScript'>
+    alert('Invalid Roll number');
+    window.location.href='userlogin.php';
+    </script>");
+  }
+  else{
+    $password_db = $res['password'];
+
+  }
+  // exit;
+  
+}
 
 ?>
 
@@ -51,10 +74,20 @@ if(isset($_POST['login']))
     }
     </style>
     <script>
+      //to show forgot pass div
       function showDiv() {
       document.getElementById('password_div').style.display = "block";
+      //to show div of password
     }
     </script>
+    <script>
+     
+      function hideDiv() {
+      document.getElementById('show_pass_div').style.display = "none";
+      //to show div of password
+    }
+    </script>
+    
     <title>User Login</title>
 </head>
 <body class="">
@@ -102,7 +135,7 @@ if(isset($_POST['login']))
           <div class="w3-col s4 ">
             <p>
             
-              <button type="Button" class="w3-input w3-teal w3-border w3-round-xxlarge"  onclick="showDiv()" value="Forgot Password?">Forgot Password? Click here</button>
+              <button type="Button" class="w3-input w3-teal w3-border w3-round-xxlarge"  onclick="showDiv(); hideDiv();" value="Forgot Password?">Forgot Password? Click here</button>
             
             </p>
           </div>
@@ -113,18 +146,36 @@ if(isset($_POST['login']))
       <div class="w3-container" id="password_div" style="display:none;">
         <div class="w3-row" >
           
-            <form action="forgotpass.php" method="post">
+            <form action="" method="post">
               <div class="w3-col s4">
                 Roll Number
                 <input type="text" class="w3-input w3-border w3-round-xxlarge" name="rollnumber" id="rollnumer" placeholder="Enter roll number">
               </div>
               <div class="w3-col s4">
-                <input type="submit" class="w3-input w3-blue w3-border w3-round-xxlarge" name="forgot_pass" id="forgot_pass" value="Find" style="margin-top: 20px; margin-left: 22px; width:44%;">
+                <input type="submit" class="w3-input w3-blue w3-border w3-round-xxlarge" name="forgot_pass" id="forgot_pass" value="Find"  style="margin-top: 20px; margin-left: 22px; width:44%;">
               </div>
             </form>
           
           </div>
         </div>
+      
+        <div class="w3-container" id="show_pass_div" name="show_pass_div"  >
+        <div class="w3-panel w3-pale-green">
+
+          <?php 
+            if($password_db != '')
+            {
+              echo "Your password is: ".$password_db;
+            }
+  //    <p>I am a panel.</p>
+            else
+            {
+              echo "Roll number not found";
+            }
+          ?>
+          </div> 
+        </div>
+
     </div>
 
     
