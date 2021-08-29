@@ -28,6 +28,15 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true )
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.css"> 
+	
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/ </script>
+	
+	<script>
+		$(document).ready( function () {
+		$('#table_id').DataTable();
+		} );
+	</script>
     <script src="/admin/script/dropdown.js"></script>
 
     <style>
@@ -79,8 +88,9 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true )
             <p>Number of complaints: <?php echo $_SESSION['num'] ?></p>
         </div>
         <div class="w3-container" style=" width: 90%; margin: auto;" >
-            <table class="w3-table-all w3-card-4 w3-hover" style="colspan:10px;">
-                <tr>
+            <table class="w3-table-all  w3-hover" id="table_id" class="display" style="colspan:10px;">
+                <thead>
+				<tr>
                     <th>
                         S.No.
                     </th>
@@ -100,6 +110,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true )
                         Status
                     </th> -->
                 </tr>
+				</thead>
                 <?php
                     $i = 1;
                         while($row = mysql_fetch_assoc($result))
@@ -111,6 +122,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true )
                         
                     
                     ?>
+					<tbody>
                         <tr>
                             <td> <?php echo $i ?>  </td>
                             <td> <?php echo $id ?>  </td>
@@ -120,7 +132,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true )
                             
 
                         </tr>
-                        
+                       </tbody> 
                     <?php $i++; } ?>
 
                 
